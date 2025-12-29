@@ -1,8 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <>
       {/* Navbar */}
@@ -13,11 +16,20 @@ export default function Home() {
             <span>Bank Sampah</span>
           </Link>
 
-          <div className="navbar-nav">
-            <Link href="#fitur" className="navbar-link">Fitur</Link>
-            <Link href="#cara-kerja" className="navbar-link">Cara Kerja</Link>
-            <Link href="/login" className="navbar-link">Masuk</Link>
-            <Link href="/register" className="btn btn-primary btn-sm">
+          {/* Mobile Menu Button */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
+
+          <div className={`navbar-nav ${mobileMenuOpen ? 'active' : ''}`}>
+            <Link href="#fitur" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Fitur</Link>
+            <Link href="#cara-kerja" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Cara Kerja</Link>
+            <Link href="/login" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Masuk</Link>
+            <Link href="/register" className="btn btn-primary btn-sm" onClick={() => setMobileMenuOpen(false)}>
               Daftar Gratis
             </Link>
           </div>
