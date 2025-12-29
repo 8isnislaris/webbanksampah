@@ -17,6 +17,7 @@ export default function AdminDashboardPage() {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         // Check if user is logged in
@@ -78,11 +79,30 @@ export default function AdminDashboardPage() {
                             Keluar
                         </button>
                     </div>
+
+                    {/* Mobile Menu Toggle for Sidebar */}
+                    <button
+                        className="mobile-menu-btn"
+                        onClick={() => setSidebarOpen(true)}
+                        style={{ marginLeft: 'auto', display: 'none' }} // Hidden by default, shown via CSS media query
+                    >
+                        ☰
+                    </button>
+                    <style jsx>{`
+                        @media (max-width: 768px) {
+                            .navbar-nav { display: none; }
+                            .mobile-menu-btn { display: flex !important; }
+                        }
+                    `}</style>
                 </div>
             </nav>
 
             <div className="dashboard-layout">
-                <Sidebar user={user} />
+                <Sidebar
+                    user={user}
+                    isOpen={sidebarOpen}
+                    onClose={() => setSidebarOpen(false)}
+                />
 
                 <main className="dashboard-main">
                     <div className="dashboard-header">
